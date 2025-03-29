@@ -1,0 +1,102 @@
+.logo-trilhas-inova {
+    width: 50vw; /* Garante metade da tela */
+    height: 100vh;
+    background-color: #2135A7;
+    position: fixed; /* Fixa a div na tela */
+    right: 0; /* Mantém no lado direito */
+    top: 0; /* Fixa no topo */
+    display: flex; /* Ativa o flexbox */
+    justify-content: center; /* Alinha horizontalmente */
+    align-items: center; /* Alinha verticalmente */
+    flex-direction: column; /* Coloca os itens (imagens) um abaixo do outro */
+}
+@media (max-width: 768px) {
+    .logo-trilhas-inova {
+        display: none !important;
+    }
+}
+.apresentacao__conteudo1__trilhas {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap; 
+    padding: 10px;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.trilha {
+    width: 40%;
+    display: flex; /* Alterado para flex */
+    flex-direction: column; /* Alinha os itens em coluna */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    padding: 20px;
+    border: 2px solid #DCDCDC;
+    border-radius: 10px;
+}
+
+.trilha img {
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
+    max-width: 100%; /* Garante que a imagem não ultrapasse o contêiner */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+.trilha__nome {
+    text-align: center; /* Centraliza o texto */
+}
+.trilha__nome{
+    display: block;
+    margin: auto;
+    text-align: center; /* Adicionando alinhamento do texto */
+}
+.input_obrigatorio{
+    color: red;
+    font-weight: 800;
+}
+
+
+
+.input_de_Enviar_cancelar{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.input__enviar{
+    width: 25%;
+    height: 45px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 15px;
+    background: #DC2626;
+}
+.input__cancelar{
+    width: 20%;
+    border-radius: 5px;
+    border: 2px solid #DC2626;
+    color: #DC2626;
+    background: white;
+    font-size: 15px;
+}
+.input__cancelar:hover{
+    cursor: pointer;
+    background: #DC2626;
+    color: white;
+}
+@media (max-width: 768px) {
+    .input__cancelar{
+        font-size: 13px;
+    }
+}
+.erro {
+    border: 2px solid red;
+    color: red;
+    background-color: #ffe6e6; /* Fundo avermelhado */
+}
+.erro::placeholder {
+    color: red;
+}

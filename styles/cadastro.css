@@ -1,0 +1,18 @@
+.logo-trilhas-inova {
+    width: 50vw; /* Garante metade da tela */
+    height: 100vh;
+    background-color: #2135A7;
+    position: fixed; /* Fixa a div na tela */
+    right: 0; /* Mantém no lado direito */
+    top: 0; /* Fixa no topo */
+    display: flex; /* Ativa o flexbox */
+    justify-content: center; /* Alinha horizontalmente */
+    align-items: center; /* Alinha verticalmente */
+    flex-direction: column; /* Coloca os itens (imagens) um abaixo do outro */
+}
+@media (max-width: 768px) {
+    .logo-trilhas-inova {
+        display: none !important;
+    }
+}
+
