@@ -25,7 +25,7 @@
                 </form>
                 <p id="mensagem" class="mt-3 text-danger"></p>
                 <p class="mt-3">
-                    <a href="cadastro.html" class="text-decoration-none">Ainda não tem conta? Cadastre-se</a>
+                    <a href="index.html" class="text-decoration-none">Ainda não tem conta? Cadastre-se</a>
                 </p>
             </section>
             <section class="col-md-6 d-none d-md-flex logo-trilhas-inova text-white">
@@ -49,7 +49,7 @@
                     document.getElementById("mensagem").innerText = "Login bem-sucedido!";
                     localStorage.setItem("usuarioLogado", id); // Salva o usuário logado
                     setTimeout(() => {
-                        window.location.href = "index.html"; // Redireciona para inscrição
+                        window.location.href = "inscricao,html"; // Redireciona para inscrição
                     }, 1500);
                 } else {
                     document.getElementById("mensagem").innerText = "Senha incorreta!";
