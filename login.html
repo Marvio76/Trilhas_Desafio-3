@@ -14,8 +14,8 @@
                 <h2 class="mb-4">Login</h2>
                 <form>
                     <div class="mb-3">
-                        <label for="id" class="form-label">Digite seu ID</label>
-                        <input type="text" id="id" class="form-control" placeholder="ID do usuário">
+                        <label for="cadastroCpf" class="form-label">Digite seu CPF</label>
+                        <input type="text" id="cadastroCpf" name="cpf" class="form-control" placeholder="CPF">
                     </div>
                     <div class="mb-3">
                         <label for="loginSenha" class="form-label">Digite a senha</label>
@@ -38,7 +38,7 @@
 
     <script>
         function login() {
-            let id = document.getElementById("id").value;
+            let id = document.getElementById("cadastroCpf").value;
             let senha = document.getElementById("loginSenha").value;
     
             let usuarioArmazenado = localStorage.getItem(id);

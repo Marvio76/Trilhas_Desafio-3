@@ -22,9 +22,9 @@
                 // these IDs from the previous steps
                 emailjs.sendForm('service_yude419', 'template_2udo5ds', this)
                     .then(() => {
-                        //alert('SUCCESS!');
+                        alert('SUCCESS!');
                     }, (error) => {
-                       // alert('FAILED...', error);
+                        alert('FAILED...', error);
                     });
             });
         }
@@ -41,8 +41,10 @@
                         <input type="email" name="email" id="cadastroEmail" class="form-control" placeholder="E-mail">
                     </div>
                     <div class="mb-3">
-                        <label for="cadastroId" class="form-label">Digite seu ID de usuário</label>
-                        <input type="text" id="cadastroId" name="Id_Usuario" class="form-control" placeholder="ID do usuário">
+                        <div class="mb-3">
+                            <label for="cadastroCpf" class="form-label">Digite seu CPF</label>
+                            <input type="text" id="cadastroCpf" name="cpf" class="form-control" placeholder="CPF">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="cadastroSenha" class="form-label">Digite a senha</label>
@@ -65,26 +67,27 @@
     
 
     <script>
-        function cadastrar() {
-            let email = document.getElementById("cadastroEmail").value;
-            let senha = document.getElementById("cadastroSenha").value;
-            let id = document.getElementById("cadastroId").value;
-    
-            if (email && senha && id) {
-                if (localStorage.getItem(id)) {
-                    document.getElementById("mensagem").innerText = "ID já cadastrado!";
-                } else {
-                    let usuario = { email: email, senha: senha };
-                    localStorage.setItem(id, JSON.stringify(usuario)); // Armazena como JSON
-                    document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";
-                    setTimeout(() => {
-                        window.location.href = "login.html"; // Redireciona para login
-                    }, 1500);
-                }
-            } else {
-                document.getElementById("mensagem").innerText = "Preencha todos os campos!";
-            }
+       function cadastrar() {
+    let email = document.getElementById("cadastroEmail").value;
+    let senha = document.getElementById("cadastroSenha").value;
+    let cpf = document.getElementById("cadastroCpf").value;
+
+    if (email && senha && cpf) {
+        if (localStorage.getItem(cpf)) {
+            document.getElementById("mensagem").innerText = "CPF já cadastrado!";
+        } else {
+            let usuario = { email: email, senha: senha };
+            localStorage.setItem(cpf, JSON.stringify(usuario)); // Armazena como JSON
+            document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";
+            setTimeout(() => {
+                window.location.href = "login.html"; // Redireciona para login
+            }, 1500);
         }
+    } else {
+        document.getElementById("mensagem").innerText = "Preencha todos os campos!";
+    }
+}
+
     </script>
     
 </body>
