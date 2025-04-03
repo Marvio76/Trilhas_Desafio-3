@@ -15,21 +15,9 @@
                 publicKey: "pDE-wOW6P4cmEsJES",
             });
         })();
+        
     </script>
-    <script type="text/javascript">
-        window.onload = function () {
-            document.getElementById('contact-form-3').addEventListener('submit', function (event) {
-                event.preventDefault();
-                // these IDs from the previous steps
-                emailjs.sendForm('service_yude419', 'template_2udo5ds', this)
-                    .then(() => {
-                        //alert('SUCCESS!');
-                    }, (error) => {
-                        //alert('FAILED...', error);
-                    });
-            });
-        }
-    </script>
+    
 </head>
 
 <body>
@@ -69,26 +57,44 @@
 
 
     <script>
-        function cadastrar() {
-            let email = document.getElementById("cadastroEmail").value;
-            let senha = document.getElementById("cadastroSenha").value;
-            let cpf = document.getElementById("cadastroCpf").value;
+       function cadastrar(event) {
+        event.preventDefault(); // Previne o envio padrão do formulário
 
-            if (email && senha && cpf) {
-                if (localStorage.getItem(cpf)) {
-                    document.getElementById("mensagem").innerText = "CPF já cadastrado!";
-                } else {
-                    let usuario = { email: email, senha: senha };
-                    localStorage.setItem(cpf, JSON.stringify(usuario)); // Armazena como JSON
-                    document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";
-                    setTimeout(() => {
-                        window.location.href = "login.html"; // Redireciona para login
-                    }, 1500);
-                }
+        let email = document.getElementById("cadastroEmail").value;
+        let senha = document.getElementById("cadastroSenha").value;
+        let cpf = document.getElementById("cadastroCpf").value;
+
+        if (email && senha && cpf) {
+            if (localStorage.getItem(cpf)) {
+                document.getElementById("mensagem").innerText = "CPF já cadastrado!";
             } else {
-                document.getElementById("mensagem").innerText = "Preencha todos os campos!";
+                let usuario = { email: email, senha: senha };
+                localStorage.setItem(cpf, JSON.stringify(usuario)); // Armazena como JSON
+                document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";
+
+                // Enviar e-mail apenas se o cadastro foi bem-sucedido
+                emailjs.sendForm('service_yude419', 'template_2udo5ds', document.getElementById("contact-form-3"))
+                    .then(() => {
+                        alert('E-mail enviado com sucesso!');
+                    })
+                    .catch((error) => {
+                        alert('Erro ao enviar e-mail:', error);
+                    });
+
+                // Redireciona para login após um tempo
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 1500);
             }
+        } else {
+            document.getElementById("mensagem").innerText = "Preencha todos os campos!";
         }
+    }
+
+    // Adicionando o evento de submit ao formulário para chamar a função correta
+    window.onload = function () {
+        document.getElementById("contact-form-3").addEventListener("submit", cadastrar);
+    };
 
         function formatarCPF(campo) {
             let cpf = campo.value.replace(/\D/g, ""); // Remove tudo que não for número

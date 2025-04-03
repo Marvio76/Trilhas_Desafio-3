@@ -14,6 +14,29 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
+        // Obtém os valores do CPF e senha digitados pelo usuário
+        const cpfInput = document.getElementById("cadastroCpf").value.trim();
+        const senhaInput = document.getElementById("loginSenha").value.trim();
+
+        // Recupera os dados armazenados no localStorage
+        const usuarioArmazenado = localStorage.getItem(cpfInput);
+
+        if (!usuarioArmazenado) {
+            alertBox.className = "alert alert-danger text-center mt-3 p-1 show";
+            alertBox.innerHTML = "CPF não encontrado!";
+            return;
+        }
+
+        // Converte de JSON para objeto
+        const dadosUsuario = JSON.parse(usuarioArmazenado);
+
+        // Verifica se a senha está correta
+        if (senhaInput !== dadosUsuario.senha) {
+            alertBox.className = "alert alert-danger text-center mt-3 p-1 show";
+            alertBox.innerHTML = "Senha incorreta!";
+            return;
+        }
+
         if (!formValido) {
             alertBox.className = "alert alert-danger text-center mt-3 p-1 show";
             alertBox.innerHTML = "Por favor, preencha todos os campos obrigatórios.";
@@ -22,12 +45,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Se tudo estiver correto
         alertBox.className = "alert alert-success text-center mt-3 p-1 show";
-        alertBox.innerHTML = "Sua inscrição foi realizada com sucesso!";
+        alertBox.innerHTML = "Inscrição realizada com sucesso!";
 
-        // Limpa o formulário após 2 segundos
-        setTimeout(() => {
-            form.reset();
-            alertBox.classList.remove("show");
-        }, 2000);
+        // Enviar e-mail via EmailJS
+        emailjs.sendForm('service_po12tie', 'template_yzdqht9', form)
+            .then(() => {
+               alert('Email enviado com sucesso!');
+            }, (error) => {
+                alert('Erro ao enviar email:', error);
+            });
+
+        // Salvar que o usuário está logado
+        localStorage.setItem("usuarioLogado", cpfInput);
+
     });
 });
