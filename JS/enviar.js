@@ -4,15 +4,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     form.addEventListener("submit", function (event) {
         event.preventDefault();
+        emailjs.init("aE6ZAMWjLIaX00FXR");
 
         const inputsObrigatorios = document.querySelectorAll(".input_obrigatorioTotal");
-        let formValido = true;
+        let formValido = [...inputsObrigatorios].every(input => input.value.trim() !== "");
 
-        inputsObrigatorios.forEach(input => {
-            if (input.value.trim() === "") {
-                formValido = false;
-            }
-        });
+        if (!formValido) {
+            alertBox.className = "alert alert-danger text-center mt-3 p-1 show";
+            alertBox.innerHTML = "Por favor, preencha todos os campos obrigatórios.";
+            return;
+        }
 
         // Obtém os valores do CPF e senha digitados pelo usuário
         const cpfInput = document.getElementById("cadastroCpf").value.trim();
@@ -37,26 +38,21 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        if (!formValido) {
-            alertBox.className = "alert alert-danger text-center mt-3 p-1 show";
-            alertBox.innerHTML = "Por favor, preencha todos os campos obrigatórios.";
-            return;
-        }
-
-        // Se tudo estiver correto
+        // Se todas as verificações passaram, exibe mensagem de sucesso
         alertBox.className = "alert alert-success text-center mt-3 p-1 show";
         alertBox.innerHTML = "Inscrição realizada com sucesso!";
 
-        // Enviar e-mail via EmailJS
+        // ✅ Agora o e-mail será enviado apenas quando a inscrição for bem-sucedida
         emailjs.sendForm('service_po12tie', 'template_yzdqht9', form)
             .then(() => {
-               alert('Email enviado com sucesso!');
-            }, (error) => {
-                alert('Erro ao enviar email:', error);
+                alert('Email enviado com sucesso!');
+            })
+            .catch((error) => {
+                console.error("Erro ao enviar email:", error);
+                alert('Erro ao enviar email. Verifique o console.');
             });
 
         // Salvar que o usuário está logado
         localStorage.setItem("usuarioLogado", cpfInput);
-
     });
 });
