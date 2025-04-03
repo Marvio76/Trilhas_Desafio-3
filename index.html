@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,34 +9,35 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
-        (function() {
+        (function () {
             // https://dashboard.emailjs.com/admin/account
             emailjs.init({
-              publicKey: "pDE-wOW6P4cmEsJES",
+                publicKey: "pDE-wOW6P4cmEsJES",
             });
         })();
     </script>
     <script type="text/javascript">
-        window.onload = function() {
-            document.getElementById('contact-form-3').addEventListener('submit', function(event) {
+        window.onload = function () {
+            document.getElementById('contact-form-3').addEventListener('submit', function (event) {
                 event.preventDefault();
                 // these IDs from the previous steps
                 emailjs.sendForm('service_yude419', 'template_2udo5ds', this)
                     .then(() => {
-                        alert('SUCCESS!');
+                        //alert('SUCCESS!');
                     }, (error) => {
-                        alert('FAILED...', error);
+                        //alert('FAILED...', error);
                     });
             });
         }
     </script>
 </head>
+
 <body>
     <main class="container d-flex vh-100 align-items-center">
         <div class="row w-100">
             <section class="col-md-6 d-flex flex-column justify-content-center">
                 <h2 class="mb-4">Cadastro do Programa Trilhas</h2>
-                <form  id="contact-form-3">
+                <form id="contact-form-3">
                     <div class="mb-3">
                         <label for="cadastroEmail" class="form-label">Digite o e-mail</label>
                         <input type="email" name="email" id="cadastroEmail" class="form-control" placeholder="E-mail">
@@ -43,7 +45,7 @@
                     <div class="mb-3">
                         <div class="mb-3">
                             <label for="cadastroCpf" class="form-label">Digite seu CPF</label>
-                            <input type="text" id="cadastroCpf" name="cpf" class="form-control" placeholder="CPF">
+                            <input type="text" id="cadastroCpf" name="cpf" class="form-control" placeholder="CPF" oninput="formatarCPF(this)" maxlength="14">
                         </div>
                     </div>
                     <div class="mb-3">
@@ -64,31 +66,48 @@
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
 
     <script>
-       function cadastrar() {
-    let email = document.getElementById("cadastroEmail").value;
-    let senha = document.getElementById("cadastroSenha").value;
-    let cpf = document.getElementById("cadastroCpf").value;
+        function cadastrar() {
+            let email = document.getElementById("cadastroEmail").value;
+            let senha = document.getElementById("cadastroSenha").value;
+            let cpf = document.getElementById("cadastroCpf").value;
 
-    if (email && senha && cpf) {
-        if (localStorage.getItem(cpf)) {
-            document.getElementById("mensagem").innerText = "CPF já cadastrado!";
-        } else {
-            let usuario = { email: email, senha: senha };
-            localStorage.setItem(cpf, JSON.stringify(usuario)); // Armazena como JSON
-            document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";
-            setTimeout(() => {
-                window.location.href = "login.html"; // Redireciona para login
-            }, 1500);
+            if (email && senha && cpf) {
+                if (localStorage.getItem(cpf)) {
+                    document.getElementById("mensagem").innerText = "CPF já cadastrado!";
+                } else {
+                    let usuario = { email: email, senha: senha };
+                    localStorage.setItem(cpf, JSON.stringify(usuario)); // Armazena como JSON
+                    document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";
+                    setTimeout(() => {
+                        window.location.href = "login.html"; // Redireciona para login
+                    }, 1500);
+                }
+            } else {
+                document.getElementById("mensagem").innerText = "Preencha todos os campos!";
+            }
         }
-    } else {
-        document.getElementById("mensagem").innerText = "Preencha todos os campos!";
-    }
-}
+
+        function formatarCPF(campo) {
+            let cpf = campo.value.replace(/\D/g, ""); // Remove tudo que não for número
+
+            // Limita a 11 dígitos
+            if (cpf.length > 11) {
+                cpf = cpf.slice(0, 11);
+            }
+
+            // Aplica a máscara XXX.XXX.XXX-XX
+            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+            cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+            campo.value = cpf;
+        }
 
     </script>
-    
+
 </body>
+
 </html>

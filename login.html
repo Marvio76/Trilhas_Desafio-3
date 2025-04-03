@@ -15,7 +15,7 @@
                 <form>
                     <div class="mb-3">
                         <label for="cadastroCpf" class="form-label">Digite seu CPF</label>
-                        <input type="text" id="cadastroCpf" name="cpf" class="form-control" placeholder="CPF">
+                        <input type="text" id="cadastroCpf" name="cpf" class="form-control" placeholder="CPF" oninput="formatarCPF(this)" maxlength="14">
                     </div>
                     <div class="mb-3">
                         <label for="loginSenha" class="form-label">Digite a senha</label>
@@ -57,6 +57,22 @@
             } else {
                 document.getElementById("mensagem").innerText = "ID não encontrado!";
             }
+        }
+
+        function formatarCPF(campo) {
+            let cpf = campo.value.replace(/\D/g, ""); // Remove tudo que não for número
+
+            // Limita a 11 dígitos
+            if (cpf.length > 11) {
+                cpf = cpf.slice(0, 11);
+            }
+
+            // Aplica a máscara XXX.XXX.XXX-XX
+            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+            cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+            campo.value = cpf;
         }
     </script>
     
