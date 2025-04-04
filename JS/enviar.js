@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!usuarioArmazenado) {
             alertBox.className = "alert alert-danger text-center mt-3 p-1 show";
-            alertBox.innerHTML = "CPF não encontrado!";
+            alertBox.innerHTML = "CPF Incorreto!";
             return;
         }
 
