@@ -15,9 +15,9 @@
                 publicKey: "pDE-wOW6P4cmEsJES",
             });
         })();
-        
+
     </script>
-    
+
 </head>
 
 <body>
@@ -33,7 +33,8 @@
                     <div class="mb-3">
                         <div class="mb-3">
                             <label for="cadastroCpf" class="form-label">Digite seu CPF</label>
-                            <input type="text" id="cadastroCpf" name="cpf" class="form-control" placeholder="CPF" oninput="formatarCPF(this)" maxlength="14">
+                            <input type="text" id="cadastroCpf" name="cpf" class="form-control" placeholder="CPF"
+                                oninput="formatarCPF(this)" maxlength="14">
                         </div>
                     </div>
                     <div class="mb-3">
@@ -57,44 +58,46 @@
 
 
     <script>
-       function cadastrar(event) {
-        event.preventDefault(); // Previne o envio padrão do formulário
+        function cadastrar(event) {
+            event.preventDefault(); // Previne o envio padrão do formulário
 
-        let email = document.getElementById("cadastroEmail").value;
-        let senha = document.getElementById("cadastroSenha").value;
-        let cpf = document.getElementById("cadastroCpf").value;
+            let email = document.getElementById("cadastroEmail").value;
+            let senha = document.getElementById("cadastroSenha").value;
+            let cpf = document.getElementById("cadastroCpf").value;
 
-        if (email && senha && cpf) {
-            if (localStorage.getItem(cpf)) {
-                document.getElementById("mensagem").innerText = "CPF já cadastrado!";
+            if (email && senha && cpf) {
+                if (localStorage.getItem(cpf)) {
+                    document.getElementById("mensagem").innerText = "CPF já cadastrado!";
+                } if (cpf.length !== 11 || !validarCPF(cpf)) {
+                    document.getElementById("mensagem").innerText = "CPF inválido ou já registrado no sistema!";
+                } else {
+                    let usuario = { email: email, senha: senha };
+                    localStorage.setItem(cpf, JSON.stringify(usuario)); // Armazena como JSON
+                    document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";
+
+                    // Enviar e-mail apenas se o cadastro foi bem-sucedido
+                    emailjs.sendForm('service_yude419', 'template_2udo5ds', document.getElementById("contact-form-3"))
+                        .then(() => {
+                            alert('E-mail enviado com sucesso!');
+                        })
+                        .catch((error) => {
+                            alert('Erro ao enviar e-mail:', error);
+                        });
+
+                    // Redireciona para login após um tempo
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, 1500);
+                }
             } else {
-                let usuario = { email: email, senha: senha };
-                localStorage.setItem(cpf, JSON.stringify(usuario)); // Armazena como JSON
-                document.getElementById("mensagem").innerText = "Cadastro realizado com sucesso!";
-
-                // Enviar e-mail apenas se o cadastro foi bem-sucedido
-                emailjs.sendForm('service_yude419', 'template_2udo5ds', document.getElementById("contact-form-3"))
-                    .then(() => {
-                        alert('E-mail enviado com sucesso!');
-                    })
-                    .catch((error) => {
-                        alert('Erro ao enviar e-mail:', error);
-                    });
-
-                // Redireciona para login após um tempo
-                setTimeout(() => {
-                    window.location.href = "login.html";
-                }, 1500);
+                document.getElementById("mensagem").innerText = "Preencha todos os campos!";
             }
-        } else {
-            document.getElementById("mensagem").innerText = "Preencha todos os campos!";
         }
-    }
 
-    // Adicionando o evento de submit ao formulário para chamar a função correta
-    window.onload = function () {
-        document.getElementById("contact-form-3").addEventListener("submit", cadastrar);
-    };
+        // Adicionando o evento de submit ao formulário para chamar a função correta
+        window.onload = function () {
+            document.getElementById("contact-form-3").addEventListener("submit", cadastrar);
+        };
 
         function formatarCPF(campo) {
             let cpf = campo.value.replace(/\D/g, ""); // Remove tudo que não for número
