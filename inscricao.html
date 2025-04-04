@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,20 +16,6 @@
             });
         })();
     </script>
-    <script type="text/javascript">
-        window.onload = function() {
-            document.getElementById('contact-form-2').addEventListener('submit', function(event) {
-                event.preventDefault();
-                // these IDs from the previous steps
-                emailjs.sendForm('service_po12tie', 'template_yzdqht9', this)
-                    .then(() => {
-                        alert('SUCCESS!');
-                    }, (error) => {
-                        alert('FAILED...', error);
-                    });
-            });
-        }
-    </script>
 </head>
 <body>
     <div class="container mt-5">
@@ -41,7 +28,7 @@
                 <p class="text-muted">Preencha os dados abaixo para fazer sua inscrição no Programa Trilhas.</p>
                 <form id="contact-form-2">
                     <h4 class="mt-4">Informações do participante</h4>
-                    <div class="mb-3">
+                    <div class="mb-3  EnviandoParaEmailJs" >
                         <label class="form-label">Nome completo <span class="input_obrigatorio">*</span></label>
                         <input type="text"  name="nome_completo" class="form-control input_obrigatorioTotal carregarDados">
                     </div>
@@ -62,9 +49,9 @@
                             <option value="outro">Outro</option>
                         </select>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3  EnviandoParaEmailJs" >
                         <label class="form-label">Email <span class="input_obrigatorio">*</span></label>
-                        <input type="email" name="email" class="form-control input_obrigatorioTotal carregarDados">
+                        <input  type="email" name="email" class="form-control input_obrigatorioTotal carregarDados">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Telefone <span class="input_obrigatorio">*</span></label>

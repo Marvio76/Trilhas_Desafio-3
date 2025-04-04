@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.querySelector("form");
+    const form = document.getElementById('contact-form-2');
     const alertBox = document.getElementById("alert");
 
     form.addEventListener("submit", function (event) {
@@ -15,11 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Obtém os valores do CPF e senha digitados pelo usuário
         const cpfInput = document.getElementById("cadastroCpf").value.trim();
         const senhaInput = document.getElementById("loginSenha").value.trim();
-
-        // Recupera os dados armazenados no localStorage
         const usuarioArmazenado = localStorage.getItem(cpfInput);
 
         if (!usuarioArmazenado) {
@@ -28,31 +25,49 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Converte de JSON para objeto
         const dadosUsuario = JSON.parse(usuarioArmazenado);
 
-        // Verifica se a senha está correta
         if (senhaInput !== dadosUsuario.senha) {
             alertBox.className = "alert alert-danger text-center mt-3 p-1 show";
             alertBox.innerHTML = "Senha incorreta!";
             return;
         }
 
-        // Se todas as verificações passaram, exibe mensagem de sucesso
         alertBox.className = "alert alert-success text-center mt-3 p-1 show";
         alertBox.innerHTML = "Inscrição realizada com sucesso!";
 
-        // ✅ Agora o e-mail será enviado apenas quando a inscrição for bem-sucedida
-        emailjs.sendForm('service_po12tie', 'template_yzdqht9', form)
+        // ✅ Criar formulário temporário com apenas nome e email
+        const tempForm = document.createElement('form');
+        const nomeInput = document.querySelector('input[name="nome_completo"]');
+        const emailInput = document.querySelector('input[name="email"]');
+
+        const inputNome = document.createElement('input');
+        inputNome.setAttribute('type', 'hidden');
+        inputNome.setAttribute('name', 'nome_completo');
+        inputNome.setAttribute('value', nomeInput.value);
+
+        const inputEmail = document.createElement('input');
+        inputEmail.setAttribute('type', 'hidden');
+        inputEmail.setAttribute('name', 'email');
+        inputEmail.setAttribute('value', emailInput.value);
+
+        tempForm.appendChild(inputNome);
+        tempForm.appendChild(inputEmail);
+
+        document.body.appendChild(tempForm); // necessário para envio via EmailJS
+
+        // ✅ Enviar apenas os campos nome e email
+        emailjs.sendForm('service_po12tie', 'template_yzdqht9', tempForm)
             .then(() => {
                 alert('Email enviado com sucesso!');
+                document.body.removeChild(tempForm); // remove o form auxiliar depois
             })
             .catch((error) => {
                 console.error("Erro ao enviar email:", error);
                 alert('Erro ao enviar email. Verifique o console.');
+                document.body.removeChild(tempForm);
             });
 
-        // Salvar que o usuário está logado
         localStorage.setItem("usuarioLogado", cpfInput);
     });
 });
