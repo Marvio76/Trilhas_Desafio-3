@@ -59,12 +59,12 @@ document.addEventListener("DOMContentLoaded", function () {
         // ✅ Enviar apenas os campos nome e email
         emailjs.sendForm('service_po12tie', 'template_yzdqht9', tempForm)
             .then(() => {
-                alert('Email enviado com sucesso!');
+                //alert('Email enviado com sucesso!');
                 document.body.removeChild(tempForm); // remove o form auxiliar depois
             })
             .catch((error) => {
                 console.error("Erro ao enviar email:", error);
-                alert('Erro ao enviar email. Verifique o console.');
+               // alert('Erro ao enviar email. Verifique o console.');
                 document.body.removeChild(tempForm);
             });
 
