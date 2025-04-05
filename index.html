@@ -68,7 +68,7 @@
             if (email && senha && cpf) {
                 if (localStorage.getItem(cpf)) {
                     document.getElementById("mensagem").innerText = "CPF já cadastrado!";
-                } if (cpf.length !== 11 || !validarCPF(cpf)) {
+                } if (cpf.length < 14) {
                     document.getElementById("mensagem").innerText = "CPF inválido ou já registrado no sistema!";
                 } else {
                     let usuario = { email: email, senha: senha };

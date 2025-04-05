@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Sucesso
         mensagem.className = "alert alert-success mt-3 p-2";
-        mensagem.innerText = "Foi enviado para o seu email a confirmação de inscrição.";
+        mensagem.innerText = "Após a conclusão de todos as etapas da inscrição, uma menssagem de comfimação será enviada para o seu email";
     });
 
     function mostrarErro(texto, input) {
